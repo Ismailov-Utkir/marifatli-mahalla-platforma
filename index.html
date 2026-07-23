@@ -753,7 +753,7 @@ let REG={regionId:"",tuman:"",mahallaId:"",ism:""}, RLOG={regionId:"",mahallaId:
 if(ROLE==="rais"){ACTIVE=SESSION.mahallaId;current="dash";}
 else if(ROLE==="aholi"){ACTIVE=SESSION.aholi&&SESSION.aholi.mahallaId;current="dash";}
 else if(ROLE==="admin"){current="aregions";}
-function persist(){Store.set("mm.mdata",MDATA);Store.set("mm.session",SESSION);Store.set("mm.myreg",[...MYREG]);Store.set("mm.myvote",MYVOTE);Store.set("mm.murojaat",MUROJAAT);Store.set("mm.ishtaklif2",ISHTAKLIF);Store.set("mm.ulashuv4",ULASHUV);Store.set("mm.raisprof",RAISPROF);Store.set("mm.media3",MEDIA);}
+function persist(){Store.set("mm.mdata",MDATA);Store.set("mm.session",SESSION);Store.set("mm.myreg",[...MYREG]);Store.set("mm.myvote",MYVOTE);Store.set("mm.murojaat",MUROJAAT);Store.set("mm.ishtaklif2",ISHTAKLIF);Store.set("mm.ulashuv5",ULASHUV);Store.set("mm.raisprof",RAISPROF);Store.set("mm.media3",MEDIA);}
 function activeData(){return getData(ACTIVE);}
 function resetData(){if(!confirm("Barcha kiritilgan ma'lumotlar o'chib, namunaviy holat tiklanadi. Davom etasizmi?"))return;const rememberRole=ROLE,rm=SESSION.mahallaId,ra=SESSION.aholi;Store.clear();Store.set("mm.session",{role:rememberRole,mahallaId:rm,aholi:ra});try{location.reload();}catch(e){MDATA={};MYREG=new Set();MYVOTE={};MUROJAAT=Store.get("mm.murojaat",null);persist();render();toast("Namunaviy holat tiklandi");}}
 
@@ -807,7 +807,7 @@ if(ISHTAKLIF===null){
 }
 
 /* ===== ULASHUV IQTISODIYOTI (aholi buyumlarini o'zaro ulashish) — ULASH_TUR I ikonkalaridan keyin e'lon qilinadi ===== */
-let ULASHUV=Store.get("mm.ulashuv4",null);
+let ULASHUV=Store.get("mm.ulashuv5",null);
 if(ULASHUV===null){
  const seed=[
   // Transport
@@ -839,7 +839,7 @@ if(ULASHUV===null){
   {n:"Oshpaz va pazandachilik xizmati",t:"marosim",e:"Karimova Malika",h:"bosh",o:"",nx:"Kelishilgan narxda",iz:"To'y oshi va milliy taomlar tayyorlash.",s:"13-iyul"},
   {n:"Foto/video va mobilograf xizmati",t:"marosim",e:"Hasanov Ulug'bek",h:"bosh",o:"",nx:"Paket narxi",iz:"To'y va tantanalarni suratga olish, montaj.",s:"11-iyul"}
  ];
- ULASHUV=seed.map((s,i)=>{const d=dirById("m_nav");const o={id:3000+i,mahallaId:"m_nav",mahallaNom:d?d.nom:"",nom:s.n,turkum:s.t,egasi:s.e,holat:s.h,oluvchi:s.o,narx:s.nx,izoh:s.iz,sana:s.s};if(s.t==="loyiha"){o.maqsad=s.maqsad;o.yigilgan=s.yigilgan;}return o;});
+ ULASHUV=seed.map((s,i)=>{const _mid=ACTIVE||"m_nav";const d=dirById(_mid);const o={id:3000+i,mahallaId:_mid,mahallaNom:d?d.nom:"",nom:s.n,turkum:s.t,egasi:s.e,holat:s.h,oluvchi:s.o,narx:s.nx,izoh:s.iz,sana:s.s};if(s.t==="loyiha"){o.maqsad=s.maqsad;o.yigilgan=s.yigilgan;}return o;});
  [["m_chi","Traktor T-28 + haydash xizmati","yer","Olimov Bahrom","bosh","","Kuniga 280 000 so'm","Yer haydash va tekislash, mavsumda navbat bilan.","17-iyul"],
   ["m_chi","Marosim chodiri (150 o'rin)","marosim","Rahimova Zuhra","band","Karimov A.","Bepul (navbat bilan)","To'y va ma'rakalar uchun.","15-iyul"],
   ["m_chi","Payvandlash apparati","buyum","Hasanov Ulug'bek","bosh","","Kuniga 25 000 so'm","Uy-ro'zg'or va qurilish ishlariga.","13-iyul"],
